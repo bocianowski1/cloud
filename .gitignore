@@ -1,0 +1,11 @@
+**/*.tfvars
+**/.terraform
+**/*.tfstate*
+
+.idea/
+.vscode/
+
+.env
+.DS_Store
+
+dev-resources.txt

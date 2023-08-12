@@ -38,6 +38,7 @@ resource "azurerm_application_insights" "insights" {
   name                = "${var.prefix}-application-insights"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
+  # application_type    = "other"
   application_type    = "Node.JS"
 }
 
@@ -62,12 +63,14 @@ resource "azurerm_function_app" "function" {
   app_settings = {
     "WEBSITE_RUN_FROM_PACKAGE"       = "",
     "FUNCTION_WORKER_RUNTIME"        = "node",
+    # "FUNCTION_WORKER_RUNTIME"        = "golang",
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.insights.instrumentation_key
   }
 
   os_type = "linux"
   site_config {
     linux_fx_version          = "NODE|14"
+    # linux_fx_version          = "golang|1.20"
     use_32_bit_worker_process = false
   }
   storage_account_name       = azurerm_storage_account.sa.name

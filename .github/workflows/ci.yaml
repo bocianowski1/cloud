@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "build step"
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "test step"
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "deploy step"

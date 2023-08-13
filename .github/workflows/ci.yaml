@@ -1,8 +1,5 @@
 name: CI
 
-variables:
-  FUNCTION_NAME: "torger-function-app"
-
 on:
   push:
     branches: [main]
@@ -22,5 +19,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Deploying to Azure..."
-      - run: func azure functionapp publish $FUNCTION_NAME
+      - run: func azure functionapp publish torger-function-app
       - run: echo "Deployed to Azure successfully"

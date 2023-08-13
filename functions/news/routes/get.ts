@@ -6,7 +6,7 @@ import axios from "axios";
 import "dotenv/config";
 
 export async function get(context: Context, req: HttpRequest) {
-  const ticker = req.query.ticker;
+  let ticker = req.query.ticker;
   if (!ticker) {
     badRequest(
       context,
@@ -15,6 +15,8 @@ export async function get(context: Context, req: HttpRequest) {
     );
     return;
   }
+
+  ticker = ticker.toUpperCase();
 
   const company = companies.find((c) => c.ticker === ticker);
   if (!company) {

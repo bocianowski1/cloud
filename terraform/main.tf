@@ -31,5 +31,6 @@ module "function" {
   prefix   = var.prefix
   rg_name  = azurerm_resource_group.rg.name
   location = local.location
+  news_api_key = var.news_api_key
 }
 

@@ -6,7 +6,8 @@ resource "azurerm_function_app" "function" {
   app_settings = {
     "WEBSITE_RUN_FROM_PACKAGE"       = "",
     "FUNCTION_WORKER_RUNTIME"        = "node",
-    "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.insights.instrumentation_key
+    "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.insights.instrumentation_key,
+    "NEWS_API_KEY"                   = var.news_api_key,
   }
 
   os_type = "linux"

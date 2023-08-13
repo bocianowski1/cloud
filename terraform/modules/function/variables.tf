@@ -12,3 +12,8 @@ variable "prefix" {
   type = string
   description = "The prefix which should be used for all resources in this example"
 }
+
+variable "news_api_key" {
+  type = string
+  description = "The API key for the News API"
+}

@@ -17,7 +17,6 @@ do
     esac
 done
 
-# Git push routine
 git_push_routine() {
 
     git add .
@@ -38,7 +37,6 @@ git_push_routine() {
     git push
 }
 
-# Deploy to Azure
 deploy_to_azure() {
     FUNCTION_APP_NAME=torger-function-app
     echo "Deploying to Azure"

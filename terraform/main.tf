@@ -69,13 +69,13 @@ resource "azurerm_function_app" "function" {
 
   os_type = "linux"
   site_config {
-    linux_fx_version          = "NODE|14"
+    linux_fx_version          = "NODE|18"
     # linux_fx_version          = "golang|1.20"
     use_32_bit_worker_process = false
   }
   storage_account_name       = azurerm_storage_account.sa.name
   storage_account_access_key = azurerm_storage_account.sa.primary_access_key
-  version                    = "~3"
+  version                    = "~4"
 
   lifecycle {
     ignore_changes = [

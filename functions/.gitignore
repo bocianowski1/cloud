@@ -25,17 +25,22 @@ local.settings.json
 node_modules
 dist
 
-**/*.tfvars
-**/.terraform
-**/*.tfstate*
+# Local python packages
+.python_packages/
 
-.idea/
-.vscode/
-
+# Python Environments
 .env
-.DS_Store
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
-dev-resources.txt
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
 # Azurite artifacts
 __blobstorage__

@@ -12,11 +12,11 @@ git_push_routine() {
         return 0
     fi
 
-    if [ $COMMIT_MESSAGE = "$(git log -1 --pretty=%B)" ] || [ -z $COMMIT_MESSAGE ] || [ $COMMIT_MESSAGE = "amend" ]
+    if [ "$COMMIT_MESSAGE" = "$(git log -1 --pretty=%B)" ] || [ -z "$COMMIT_MESSAGE" ] || [ "$COMMIT_MESSAGE" = "amend" ]
     then
         git commit --amend --no-edit
     else
-        git commit -m $COMMIT_MESSAGE
+        git commit -m "$COMMIT_MESSAGE"
     fi
 
     git push

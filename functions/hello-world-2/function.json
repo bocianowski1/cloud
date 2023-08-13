@@ -13,5 +13,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/hello-world/index.js"
+  "scriptFile": "../dist/hello-world-2/index.js"
 }

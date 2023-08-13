@@ -19,5 +19,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Deploying to Azure..."
-      - run: func azure functionapp publish torger-function-app
-      - run: echo "Deployed to Azure successfully"
+      # - run: func azure functionapp publish torger-function-app
+      # - run: echo "Deployed to Azure successfully"

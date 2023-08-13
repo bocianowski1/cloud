@@ -14,7 +14,6 @@ provider "azurerm" {
 locals {
   environment = "dev"
   location    = "westeurope"
-  user        = "torger"
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -26,60 +25,11 @@ resource "azurerm_resource_group" "rg" {
   }
 }
 
-resource "azurerm_storage_account" "sa" {
-  name                     = "${var.prefix}storage"
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
+module "function" {
+  source = "./modules/function"
+
+  prefix   = var.prefix
+  rg_name  = azurerm_resource_group.rg.name
+  location = local.location
 }
 
-resource "azurerm_application_insights" "insights" {
-  name                = "${var.prefix}-application-insights"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  # application_type    = "other"
-  application_type    = "Node.JS"
-}
-
-resource "azurerm_app_service_plan" "asp" {
-  name                = "${var.prefix}-app-service-plan"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  kind                = "FunctionApp"
-  reserved            = true
-
-  sku {
-    tier = "Dynamic"
-    size = "Y1"
-  }
-}
-
-resource "azurerm_function_app" "function" {
-  name                = "${var.prefix}-function-app"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  app_service_plan_id = azurerm_app_service_plan.asp.id
-  app_settings = {
-    "WEBSITE_RUN_FROM_PACKAGE"       = "",
-    "FUNCTION_WORKER_RUNTIME"        = "node",
-    # "FUNCTION_WORKER_RUNTIME"        = "golang",
-    "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.insights.instrumentation_key
-  }
-
-  os_type = "linux"
-  site_config {
-    linux_fx_version          = "NODE|18"
-    # linux_fx_version          = "golang|1.20"
-    use_32_bit_worker_process = false
-  }
-  storage_account_name       = azurerm_storage_account.sa.name
-  storage_account_access_key = azurerm_storage_account.sa.primary_access_key
-  version                    = "~4"
-
-  lifecycle {
-    ignore_changes = [
-      app_settings["WEBSITE_RUN_FROM_PACKAGE"]
-    ]
-  }
-}

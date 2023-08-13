@@ -1,8 +1,24 @@
 #!/bin/bash
 
+COMMIT_MESSAGE=""
+PUSH_ONLY=0
+
+for arg in "$@"
+do
+    case $arg in
+        --push-only)
+        PUSH_ONLY=1
+        shift
+        ;;
+        *)
+        COMMIT_MESSAGE=$arg
+        shift
+        ;;
+    esac
+done
+
 # Git push routine
 git_push_routine() {
-    COMMIT_MESSAGE=$1
 
     git add .
 
@@ -34,8 +50,12 @@ deploy_to_azure() {
 
 set -e
 
-git_push_routine "$1" &
-deploy_to_azure &
-wait
+git_push_routine "$1"
 
-echo "Both Git push and Azure deployment are done!"
+if [ $PUSH_ONLY -eq 0 ]; then
+    deploy_to_azure &
+    wait
+fi
+
+echo "Git push done!"
+[ $PUSH_ONLY -eq 0 ] && echo "Azure deployment done!"

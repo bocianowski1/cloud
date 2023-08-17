@@ -1,0 +1,24 @@
+{
+  "bindings": [
+    {
+      "authLevel": "Anonymous",
+      "type": "HttpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["get", "post"]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "queue",
+      "direction": "out",
+      "name": "queueItem",
+      "queueName": "torger-queue",
+      "connection": "AzureWebJobsStorage"
+    }
+  ],
+  "scriptFile": "../dist/hello/index.js"
+}

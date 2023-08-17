@@ -1,9 +1,8 @@
 import { Context, HttpRequest } from "@azure/functions";
 import { badRequest, ok } from "./responses";
-import { companies } from "../../common";
+import { companies } from "../common";
 
 import axios from "axios";
-import "dotenv/config";
 
 export async function get(context: Context, req: HttpRequest) {
   let ticker = req.query.ticker;
@@ -51,7 +50,9 @@ async function getNewsByTicker(query: string) {
         page: 1,
       },
       headers: {
-        "x-api-key": process.env.NEWS_API_KEY,
+        "x-api-key":
+          process.env.NEWS_API_KEY ||
+          "MDOnXm6aR51STF6zADy48yO7ycNCF3_Z1somm4BkYl4",
       },
     });
 

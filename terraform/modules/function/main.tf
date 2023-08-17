@@ -7,7 +7,8 @@ resource "azurerm_function_app" "function" {
     "WEBSITE_RUN_FROM_PACKAGE"       = "",
     "FUNCTION_WORKER_RUNTIME"        = "node",
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.insights.instrumentation_key,
-    "NEWS_API_KEY"                   = var.news_api_key,
+    "NODE_NEWS_API_KEY"              = var.news_api_key,
+    "AzureWebJobsStorage"            = azurerm_storage_account.sa.primary_connection_string
   }
 
   os_type = "linux"
@@ -24,6 +25,11 @@ resource "azurerm_function_app" "function" {
       app_settings["WEBSITE_RUN_FROM_PACKAGE"]
     ]
   }
+}
+
+resource "azurerm_storage_queue" "queue" {
+  name                 = "${var.prefix}-queue"
+  storage_account_name = azurerm_storage_account.sa.name
 }
 
 resource "azurerm_storage_account" "sa" {
